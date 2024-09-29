@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,9 +18,8 @@ class MyApp extends StatelessWidget {
           mainColor: Color.fromARGB(255, 107, 164, 163),
           secondColor: Color(0xFFb4e6e3),
           highlightColor: Color(0xFFd8eceb),
-          
         )],
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: const InputDecorationTheme(
           /* border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ), */
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            backgroundColor:  Color.fromARGB(255, 107, 164, 163),
-            foregroundColor: Color(0xff292b2c),
+            backgroundColor:  const Color.fromARGB(255, 107, 164, 163),
+            foregroundColor: const Color(0xff292b2c),
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
           ),)
       ),
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -59,15 +62,15 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text;
 
     
-    if (username == 'someone' && password == 'password') {
+    if (username == 'marliz' && password == 'qwerty') {
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login exitoso')),
+        SnackBar(content: Text('Bienvenido $username')),
       );
     } else {
       // Simula un error de inicio de sesión
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuario o contraseña incorrectos')),
+        const SnackBar(content: Text('Revise su usuario y contraseña')),
       );
     }
   }
@@ -78,27 +81,27 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colors.mainColor,
-        title: Text('Carnet veterinario'),
+        title: const Text('Carnet veterinario'),
       ),
       body: Padding(
-        
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Usuario'),
+              decoration: const InputDecoration(labelText: 'Usuario'),
             ),
+            const SizedBox(height: 30),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Contraseña'),
+              decoration: const InputDecoration(labelText: 'Contraseña'),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 30),
             ElevatedButton(
               onPressed: _login,
-              child: Text('Iniciar Sesión'),
+              child: const Text('Iniciar Sesión'),
             ),
           ],
         ),
