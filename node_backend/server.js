@@ -6,19 +6,16 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Configuración de la base de datos
 const db = mysql.createConnection({
-  host: '127.0.0.1', // Cambia esto
-  user: 'root', // Cambia esto
-  password: 'root', // Cambia esto
-  database: 'veterinaria_pbd' // Cambia esto
+  host: '127.0.0.1',
+  user: 'root',
+  password: 'root',
+  database: 'veterinaria_pbd'
 });
 
-// Conectar a la base de datos
 db.connect((err) => {
   if (err) {
     console.error('Error al conectar a la base de datos:', err);
@@ -27,17 +24,26 @@ db.connect((err) => {
   console.log('Conectado a la base de datos MySQL.');
 });
 
-// Rutas
-app.get('/propietarios', (req, res) => {
-  db.query('SELECT * FROM propietarios', (err, results) => {
-    if (err) {
-      return res.status(500).json({ error: err });
+app.post('/login', (req, res) => {
+  const { nombre, password } = req.body;
+
+  db.query(
+    'SELECT * FROM propietarios WHERE nombre = ? AND password = ?',
+    [nombre, password],
+    (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: 'Error en la base de datos' });
+      }
+      if (results.length > 0) {
+        res.status(200).json({ nombre: results[0].nombre });
+      } else {
+        res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+      }
     }
-    res.json(results);
-  });
+  );
 });
 
-// Iniciar el servidor
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
