@@ -3,25 +3,33 @@ import 'package:flutter/material.dart';
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
   const AppColors({
-    required this.accentuated,
-    required this.overlay,
-    required this.hint,
+    required this.mainColor,
+    required this.secondColor,
+    required this.highlightColor, 
+    required this.dark, 
+    required this.light,
   });
 
-  final Color? accentuated;
-  final Color? overlay;
-  final Color? hint;
+  final Color? mainColor;
+  final Color? secondColor;
+  final Color? highlightColor;
+  final Color? dark;
+  final Color? light;
 
   @override
   AppColors copyWith({
-    Color? accentuated,
-    Color? overlay,
-    Color? hint,
+    Color? mainColor,
+    Color? secondColor,
+    Color? highlightColor,
+    Color? dark,
+    Color? light,
   }) =>
       AppColors(
-        accentuated: accentuated ?? this.accentuated,
-        overlay: overlay ?? this.overlay,
-        hint: hint ?? this.hint,
+        mainColor: mainColor ?? this.mainColor,
+        secondColor: secondColor ?? this.secondColor,
+        highlightColor: highlightColor ?? this.highlightColor,
+        dark: dark ?? this.dark,
+        light: light ?? this.light,
       );
 
   @override
@@ -30,9 +38,11 @@ class AppColors extends ThemeExtension<AppColors> {
       return this;
     }
     return AppColors(
-      accentuated: Color.lerp(accentuated, other.accentuated, t),
-      overlay: Color.lerp(overlay, other.overlay, t),
-      hint: Color.lerp(hint, other.hint, t),
+      mainColor: Color.lerp(mainColor, other.mainColor, t),
+      secondColor: Color.lerp(secondColor, other.secondColor, t),
+      highlightColor: Color.lerp(highlightColor, other.highlightColor, t),
+      dark: Color.lerp(dark, other.dark, t),
+      light: Color.lerp(light, other.light, t),
     );
   }
 }

@@ -8,13 +8,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lavandería App',
+      title: 'Carnet veterinario',
       theme: ThemeData.light().copyWith(
         extensions: const[AppColors(
-          accentuated: Color.fromARGB(255, 107, 164, 163),
-          overlay: Color(0xFFb4e6e3),
-          hint: Color(0xFFd8eceb),
+          dark: Color(0xFF292b2c),
+          light: Color(0xFFf3fefe),
+          mainColor: Color.fromARGB(255, 107, 164, 163),
+          secondColor: Color(0xFFb4e6e3),
+          highlightColor: Color(0xFFd8eceb),
+          
         )],
+        inputDecorationTheme: InputDecorationTheme(
+          /* border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ), */
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 107, 164, 163),
+            ),
+          ),
+          labelStyle: TextStyle(
+            color: Color.fromARGB(255, 107, 164, 163),
+          ),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
@@ -61,8 +77,8 @@ class _LoginPageState extends State<LoginPage> {
     var colors = Theme.of(context).extension<AppColors>()!;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colors.accentuated,
-        title: Text('lavandería App'),
+        backgroundColor: colors.mainColor,
+        title: Text('Carnet veterinario'),
       ),
       body: Padding(
         
