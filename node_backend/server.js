@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 
 // Configuración de la base de datos
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'tu_usuario', // Cambia esto
-  password: 'tu_contraseña', // Cambia esto
-  database: 'tu_base_de_datos' // Cambia esto
+  host: '127.0.0.1', // Cambia esto
+  user: 'root', // Cambia esto
+  password: 'root', // Cambia esto
+  database: 'veterinaria_pbd' // Cambia esto
 });
 
 // Conectar a la base de datos
@@ -28,8 +28,8 @@ db.connect((err) => {
 });
 
 // Rutas
-app.get('/usuarios', (req, res) => {
-  db.query('SELECT * FROM usuarios', (err, results) => {
+app.get('/propietarios', (req, res) => {
+  db.query('SELECT * FROM propietarios', (err, results) => {
     if (err) {
       return res.status(500).json({ error: err });
     }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:veterinaria_pbd/app_colors.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 void main() {
   runApp(MyApp());
 }
@@ -56,23 +58,36 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _login() { // Función para iniciar sesión. 
-  //TODO: Agregar lógica de inicio de sesión aquí, esto es solo un ejemplo con un snackbar.
+  Future<void> _login() async {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
-    
-    if (username == 'marliz' && password == 'qwerty') {
-      
+    final response = await http.post(
+      Uri.parse('http://tu_api_url/login'), // Cambia esto a la URL de tu API
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      // Manejar la respuesta, por ejemplo:
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Bienvenid@ $username')),
+        SnackBar(content: Text('Bienvenid@ ${data['username']}')),
       );
     } else {
-      // Simula un error de inicio de sesión
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Revise su usuario y contraseña')),
       );
     }
+  }
+
+  void _loginButtonPressed() async {
+    await _login(); // Llama a la función para iniciar sesión
   }
 
   @override
@@ -100,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: _login,
+              onPressed: _loginButtonPressed, // Cambia aquí
               child: const Text('Iniciar Sesión'),
             ),
           ],
