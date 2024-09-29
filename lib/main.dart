@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     if (username == 'marliz' && password == 'qwerty') {
       
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Bienvenido $username')),
+        SnackBar(content: Text('Bienvenid@ $username')),
       );
     } else {
       // Simula un error de inicio de sesión
